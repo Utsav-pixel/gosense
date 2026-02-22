@@ -1,0 +1,27 @@
+{
+  "engine": {
+    "production_rate": "50ms",
+    "batch_size": 100,
+    "batch_timeout": "200ms",
+    "max_workers": 5
+  },
+  "seeder": {
+    "type": "normal",
+    "params": {
+      "mean": 70.0,
+      "std_dev": 10.0
+    }
+  },
+  "output": {
+    "type": "kafka",
+    "params": {
+      "brokers": ["localhost:9092"],
+      "topic": "medical.data.v1"
+    },
+    "metadata": {
+      "sensor_type": "heart_rate",
+      "patient_id": "demo-patient-001",
+      "hospital": "general-hospital"
+    }
+  }
+}

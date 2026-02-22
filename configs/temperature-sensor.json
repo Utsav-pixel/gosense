@@ -1,0 +1,28 @@
+{
+  "engine": {
+    "production_rate": "100ms",
+    "batch_size": 50,
+    "batch_timeout": "500ms",
+    "max_workers": 3
+  },
+  "seeder": {
+    "type": "time",
+    "params": {
+      "amplitude": 1.0,
+      "frequency": 0.1,
+      "offset": 0.0
+    }
+  },
+  "output": {
+    "type": "http",
+    "params": {
+      "endpoint": "https://api.example.com/sensor-data",
+      "timeout": "5s"
+    },
+    "metadata": {
+      "sensor_type": "temperature",
+      "location": "server-room-1",
+      "version": "1.0"
+    }
+  }
+}

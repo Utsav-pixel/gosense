@@ -1,0 +1,26 @@
+{
+  "engine": {
+    "production_rate": "10ms",
+    "batch_size": 1000,
+    "batch_timeout": "100ms",
+    "max_workers": 10
+  },
+  "seeder": {
+    "type": "custom",
+    "params": {
+      "amplitude": 2.0
+    }
+  },
+  "output": {
+    "type": "grpc",
+    "params": {
+      "address": "localhost:50051",
+      "service": "SensorDataService"
+    },
+    "metadata": {
+      "sensor_type": "industrial",
+      "factory": "factory-001",
+      "line": "assembly-line-3"
+    }
+  }
+}
