@@ -11,31 +11,6 @@ import (
 	"github.com/Utsav-pixel/gosense"
 )
 
-// ConsolePublisher for testing and demonstration
-type ConsolePublisher[T any] struct{}
-
-func NewConsolePublisher[T any]() *ConsolePublisher[T] {
-	return &ConsolePublisher[T]{}
-}
-
-func (p *ConsolePublisher[T]) Publish(ctx context.Context, data gosense.SensorData[T]) error {
-	fmt.Printf("📊 [%s] %+v\n", data.Quality, data.Data)
-	return nil
-}
-
-func (p *ConsolePublisher[T]) PublishBatch(ctx context.Context, data []gosense.SensorData[T]) error {
-	fmt.Printf("📦 Batch of %d items:\n", len(data))
-	for i, item := range data {
-		fmt.Printf("  [%d] [%s] %+v\n", i, item.Quality, item.Data)
-	}
-	return nil
-}
-
-func (p *ConsolePublisher[T]) Close() error {
-	fmt.Println("🔚 Console publisher closed")
-	return nil
-}
-
 // Example 1: Temperature Sensor with Time-based Seeder
 // Shows how environmental factors change over time
 func TemperatureSensorExample() {
@@ -89,7 +64,7 @@ func TemperatureSensorExample() {
 		}
 	})
 
-	publisher := NewConsolePublisher[TemperatureReading]()
+	publisher := gosense.NewConsolePublisher[TemperatureReading]()
 
 	config := gosense.DefaultConfig()
 	config.ProductionRate = 1 * time.Second
@@ -159,7 +134,7 @@ func IoTDeviceExample() {
 		}
 	})
 
-	publisher := NewConsolePublisher[IoTReading]()
+	publisher := gosense.NewConsolePublisher[IoTReading]()
 
 	config := gosense.DefaultConfig()
 	config.ProductionRate = 500 * time.Millisecond
@@ -242,7 +217,7 @@ func IndustrialSensorExample() {
 		}
 	})
 
-	publisher := NewConsolePublisher[MachineMetrics]()
+	publisher := gosense.NewConsolePublisher[MachineMetrics]()
 
 	config := gosense.DefaultConfig()
 	config.ProductionRate = 2 * time.Second
@@ -332,7 +307,7 @@ func WeatherStationExample() {
 		}
 	})
 
-	publisher := NewConsolePublisher[WeatherData]()
+	publisher := gosense.NewConsolePublisher[WeatherData]()
 
 	config := gosense.DefaultConfig()
 	config.ProductionRate = 3 * time.Second
@@ -442,7 +417,7 @@ func CustomSeederExample() {
 		}
 	})
 
-	publisher := NewConsolePublisher[FinancialMetrics]()
+	publisher := gosense.NewConsolePublisher[FinancialMetrics]()
 
 	config := gosense.DefaultConfig()
 	config.ProductionRate = 1 * time.Second

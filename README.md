@@ -18,11 +18,14 @@ A highly configurable, generic sensor data generation engine written in Go that 
 ```go
 import "github.com/Utsav-pixel/gosense"
 
-// Create publisher
+// Create publisher (console for development)
+publisher := gosense.NewConsolePublisher[YourData]()
+
+// Or use HTTP publisher
 httpPublisher := gosense.NewGenericHTTPPublisher[YourData]("https://api.example.com/data")
 
 // Create engine
-engine := gosense.NewEngine(config, seeder, sensorFunc, httpPublisher)
+engine := gosense.NewEngine(config, seeder, sensorFunc, publisher)
 ```
 
 ---
@@ -79,6 +82,7 @@ Available via `gosense.New*Publisher()` functions:
 - `GenericHTTPPublisher[T]`: HTTP/REST API publishing
 - `GenericKafkaPublisher[T]`: Apache Kafka publishing  
 - `GenericGRPCPublisher[T]`: gRPC streaming
+- `ConsolePublisher[T]`: Console output for development and testing
 
 ## Quick Start
 
