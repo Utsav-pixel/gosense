@@ -4,6 +4,12 @@ This directory contains detailed release notes for all GoSense versions.
 
 ## 📋 Available Releases
 
+### **[v0.2.3](./v0.2.3.md)** - Console Publisher Added
+- ✅ Added console publisher to public API
+- ✅ Complete publisher ecosystem (HTTP, Kafka, gRPC, Console)
+- ✅ Enhanced development and testing experience
+- ✅ Visual formatted output for debugging
+
 ### **[v0.2.2](./v0.2.2.md)** - Documentation Organization
 - ✅ Organized release notes in dedicated folder
 - ✅ Enhanced README with latest release section
@@ -24,7 +30,7 @@ This directory contains detailed release notes for all GoSense versions.
 
 ## 🔄 Upgrade Guide
 
-### From v0.1.0 to v0.2.2
+### From v0.1.0 to v0.2.3
 ```bash
 # Old (broken)
 import "github.com/Utsav-pixel/gosense/internal/engine"
@@ -33,10 +39,10 @@ import "github.com/Utsav-pixel/gosense/internal/engine"
 import "github.com/Utsav-pixel/gosense"
 ```
 
-### From v0.2.0/v0.2.1 to v0.2.2
-No breaking changes - documentation improvements only:
+### From v0.2.0/v0.2.1/v0.2.2 to v0.2.3
+No breaking changes - console publisher addition only:
 ```bash
-go get github.com/Utsav-pixel/gosense@v0.2.2
+go get github.com/Utsav-pixel/gosense@v0.2.3
 ```
 
 ---
@@ -45,6 +51,7 @@ go get github.com/Utsav-pixel/gosense@v0.2.2
 
 | Version | Date | Changes |
 |---------|------|---------|
+| v0.2.3 | 2025-03-15 | Console publisher added |
 | v0.2.2 | 2025-03-15 | Documentation organization |
 | v0.2.1 | 2025-03-15 | Complete public API with publishers |
 | v0.2.0 | 2025-03-15 | Fixed public API access |
@@ -52,5 +59,5 @@ go get github.com/Utsav-pixel/gosense@v0.2.2
 
 ---
 
-**🎯 Latest Version**: [v0.2.2](./v0.2.2.md)  
-**📦 Install**: `go get github.com/Utsav-pixel/gosense@v0.2.2`
+**🎯 Latest Version**: [v0.2.3](./v0.2.3.md)  
+**📦 Install**: `go get github.com/Utsav-pixel/gosense@v0.2.3`
