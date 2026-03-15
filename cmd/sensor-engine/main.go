@@ -8,8 +8,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/utsav-pixel/gosense/examples"
-	"github.com/utsav-pixel/gosense/internal/engine"
+	"github.com/Utsav-pixel/gosense/examples"
+	"github.com/Utsav-pixel/gosense/internal/engine"
 )
 
 func main() {
@@ -85,7 +85,7 @@ func runFromConfig(configPath string, duration time.Duration) {
 }
 
 func showHelp() {
-	fmt.Println(`
+	fmt.Print(`
 🎯 Generic Sensor Engine - Real-World Examples
 
 USAGE:
