@@ -5,7 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/utsav-pixel/gosense/internal/engine"
+	"github.com/Utsav-pixel/gosense/internal/engine"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 )

@@ -1,4 +1,4 @@
-module github.com/utsav-pixel/gosense
+module github.com/Utsav-pixel/gosense
 
 go 1.24.1
 

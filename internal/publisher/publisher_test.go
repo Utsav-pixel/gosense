@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/utsav-pixel/gosense/internal/engine"
+	"github.com/Utsav-pixel/gosense/internal/engine"
 )
 
 func TestGenericHTTPPublisher_Publish(t *testing.T) {

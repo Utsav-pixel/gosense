@@ -8,7 +8,7 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/utsav-pixel/gosense/internal/engine"
+	"github.com/Utsav-pixel/gosense/internal/engine"
 )
 
 // GenericHTTPPublisher is a generic HTTP publisher
