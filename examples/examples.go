@@ -8,7 +8,7 @@ import (
 	"math/rand/v2"
 	"time"
 
-	"github.com/Utsav-pixel/gosense/internal/engine"
+	"github.com/Utsav-pixel/gosense"
 )
 
 // ConsolePublisher for testing and demonstration
@@ -18,12 +18,12 @@ func NewConsolePublisher[T any]() *ConsolePublisher[T] {
 	return &ConsolePublisher[T]{}
 }
 
-func (p *ConsolePublisher[T]) Publish(ctx context.Context, data engine.SensorData[T]) error {
+func (p *ConsolePublisher[T]) Publish(ctx context.Context, data gosense.SensorData[T]) error {
 	fmt.Printf("📊 [%s] %+v\n", data.Quality, data.Data)
 	return nil
 }
 
-func (p *ConsolePublisher[T]) PublishBatch(ctx context.Context, data []engine.SensorData[T]) error {
+func (p *ConsolePublisher[T]) PublishBatch(ctx context.Context, data []gosense.SensorData[T]) error {
 	fmt.Printf("📦 Batch of %d items:\n", len(data))
 	for i, item := range data {
 		fmt.Printf("  [%d] [%s] %+v\n", i, item.Quality, item.Data)
@@ -48,14 +48,14 @@ func TemperatureSensorExample() {
 
 	// Time-based seeder generates values that change over time
 	// This simulates daily temperature cycles
-	seeder := engine.NewTimeSeeder(
+	seeder := gosense.NewTimeSeeder(
 		1.0,  // amplitude - temperature variation range
 		0.1,  // frequency - how fast temperature changes
 		20.0, // offset - base temperature
 	)
 
 	// User-defined function that uses seeder input to generate realistic temperature data
-	sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) TemperatureReading {
+	sensorFunc := gosense.NewFunction(func(input float64, timestamp time.Time) TemperatureReading {
 		// Input from seeder represents environmental factor (0-1) affecting temperature
 		// Higher input = hotter environment
 
@@ -91,11 +91,11 @@ func TemperatureSensorExample() {
 
 	publisher := NewConsolePublisher[TemperatureReading]()
 
-	config := engine.DefaultConfig()
+	config := gosense.DefaultConfig()
 	config.ProductionRate = 1 * time.Second
 	config.BatchSize = 3
 
-	testEngine := engine.NewEngine(config, seeder, sensorFunc, publisher)
+	testEngine := gosense.NewEngine(config, seeder, sensorFunc, publisher)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
@@ -120,10 +120,10 @@ func IoTDeviceExample() {
 
 	// Random seeder simulates random device states
 	// Each call generates a random value between 0 and 1
-	seeder := engine.NewRandomSeeder(0.0, 1.0)
+	seeder := gosense.NewRandomSeeder(0.0, 1.0)
 
 	// User-defined function that uses random input to simulate IoT device behavior
-	sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) IoTReading {
+	sensorFunc := gosense.NewFunction(func(input float64, timestamp time.Time) IoTReading {
 		// Input from random seeder represents device stress/activity level
 		// Higher input = more active device = higher battery drain
 
@@ -161,11 +161,11 @@ func IoTDeviceExample() {
 
 	publisher := NewConsolePublisher[IoTReading]()
 
-	config := engine.DefaultConfig()
+	config := gosense.DefaultConfig()
 	config.ProductionRate = 500 * time.Millisecond
 	config.BatchSize = 5
 
-	testEngine := engine.NewEngine(config, seeder, sensorFunc, publisher)
+	testEngine := gosense.NewEngine(config, seeder, sensorFunc, publisher)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 8*time.Second)
 	defer cancel()
@@ -191,10 +191,10 @@ func IndustrialSensorExample() {
 
 	// Linear seeder simulates gradual machine wear over time
 	// Starts at 0.1 and increases by 0.01 each generation
-	seeder := engine.NewLinearSeeder(0.01, 0.1)
+	seeder := gosense.NewLinearSeeder(0.01, 0.1)
 
 	// User-defined function that simulates machine degradation
-	sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) MachineMetrics {
+	sensorFunc := gosense.NewFunction(func(input float64, timestamp time.Time) MachineMetrics {
 		// Input from linear seeder represents machine wear factor (0.1 to 1.0+)
 		// Higher input = more wear = worse performance
 
@@ -244,11 +244,11 @@ func IndustrialSensorExample() {
 
 	publisher := NewConsolePublisher[MachineMetrics]()
 
-	config := engine.DefaultConfig()
+	config := gosense.DefaultConfig()
 	config.ProductionRate = 2 * time.Second
 	config.BatchSize = 2
 
-	testEngine := engine.NewEngine(config, seeder, sensorFunc, publisher)
+	testEngine := gosense.NewEngine(config, seeder, sensorFunc, publisher)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 12*time.Second)
 	defer cancel()
@@ -275,10 +275,10 @@ func WeatherStationExample() {
 
 	// Normal seeder generates values following normal distribution
 	// Mean=0.5, StdDev=0.2 - simulates natural weather variations
-	seeder := engine.NewNormalSeeder(0.5, 0.2)
+	seeder := gosense.NewNormalSeeder(0.5, 0.2)
 
 	// User-defined function that simulates realistic weather patterns
-	sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) WeatherData {
+	sensorFunc := gosense.NewFunction(func(input float64, timestamp time.Time) WeatherData {
 		// Input from normal seeder represents weather variability factor
 		// Most values cluster around 0.5 with some outliers
 
@@ -334,11 +334,11 @@ func WeatherStationExample() {
 
 	publisher := NewConsolePublisher[WeatherData]()
 
-	config := engine.DefaultConfig()
+	config := gosense.DefaultConfig()
 	config.ProductionRate = 3 * time.Second
 	config.BatchSize = 1
 
-	testEngine := engine.NewEngine(config, seeder, sensorFunc, publisher)
+	testEngine := gosense.NewEngine(config, seeder, sensorFunc, publisher)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
 	defer cancel()
@@ -396,7 +396,7 @@ func CustomSeederExample() {
 	seeder := &MarketSeeder{cycle: 0}
 
 	// User-defined function that simulates financial metrics
-	sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) FinancialMetrics {
+	sensorFunc := gosense.NewFunction(func(input float64, timestamp time.Time) FinancialMetrics {
 		// Input from custom seeder represents market sentiment (0-1)
 		// 0 = bear market, 1 = bull market
 
@@ -444,11 +444,11 @@ func CustomSeederExample() {
 
 	publisher := NewConsolePublisher[FinancialMetrics]()
 
-	config := engine.DefaultConfig()
+	config := gosense.DefaultConfig()
 	config.ProductionRate = 1 * time.Second
 	config.BatchSize = 2
 
-	testEngine := engine.NewEngine(config, seeder, sensorFunc, publisher)
+	testEngine := gosense.NewEngine(config, seeder, sensorFunc, publisher)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()

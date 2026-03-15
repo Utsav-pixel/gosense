@@ -2,7 +2,7 @@
 
 ## ✅ **ALL TESTS PASSING**
 
-### **Engine Package Tests** (`internal/engine/`)
+### **Engine Package Tests** (`internal/engine/` and public API)
 - **Config Tests**: ✅ 7/7 passing
   - `TestConfigFile_LoadConfigFromFile` ✅
   - `TestConfigFile_ToEngineConfig` ✅  

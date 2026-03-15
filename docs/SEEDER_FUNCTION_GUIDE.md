@@ -18,10 +18,10 @@ This separation allows you to:
 ### 1. **TimeSeeder** - Time-based patterns
 ```go
 // Generates values that change over time with sine waves
-seeder := engine.NewTimeSeeder(amplitude, frequency, offset)
+seeder := gosense.NewTimeSeeder(amplitude, frequency, offset)
 
 // Example: Daily temperature cycles
-seeder := engine.NewTimeSeeder(1.0, 0.1, 20.0)
+seeder := gosense.NewTimeSeeder(1.0, 0.1, 20.0)
 // amplitude=1.0: temperature varies ±1°C
 // frequency=0.1: slow daily cycle  
 // offset=20.0: base temperature 20°C
@@ -30,20 +30,20 @@ seeder := engine.NewTimeSeeder(1.0, 0.1, 20.0)
 ### 2. **RandomSeeder** - Random events
 ```go
 // Generates random values in a range
-seeder := engine.NewRandomSeeder(min, max)
+seeder := gosense.NewRandomSeeder(min, max)
 
 // Example: Random IoT device states
-seeder := engine.NewRandomSeeder(0.0, 1.0)
+seeder := gosense.NewRandomSeeder(0.0, 1.0)
 // Generates random values between 0 and 1
 ```
 
 ### 3. **LinearSeeder** - Progressive changes
 ```go
 // Generates values that increase/decrease linearly
-seeder := engine.NewLinearSeeder(increment, start)
+seeder := gosense.NewLinearSeeder(increment, start)
 
 // Example: Machine wear over time
-seeder := engine.NewLinearSeeder(0.01, 0.1)
+seeder := gosense.NewLinearSeeder(0.01, 0.1)
 // increment=0.01: wear increases by 0.01 each generation
 // start=0.1: starts at 10% wear
 ```
@@ -51,10 +51,10 @@ seeder := engine.NewLinearSeeder(0.01, 0.1)
 ### 4. **NormalSeeder** - Natural distributions
 ```go
 // Generates values following normal distribution
-seeder := engine.NewNormalSeeder(mean, stdDev)
+seeder := gosense.NewNormalSeeder(mean, stdDev)
 
 // Example: Natural weather variations
-seeder := engine.NewNormalSeeder(0.5, 0.2)
+seeder := gosense.NewNormalSeeder(0.5, 0.2)
 // mean=0.5: centered around middle
 // stdDev=0.2: most values within 0.1-0.9 range
 ```
@@ -81,7 +81,7 @@ seeder := &MarketSeeder{cycle: 0}
 
 ### 1. **BasicSensorFunction** - Simple transformations
 ```go
-sensorFunc := engine.NewBasicSensorFunction(func(input float64, timestamp time.Time) YourDataType {
+sensorFunc := gosense.NewBasicSensorFunction(func(input float64, timestamp time.Time) YourDataType {
     // Your logic here
     return yourData
 })
@@ -89,7 +89,7 @@ sensorFunc := engine.NewBasicSensorFunction(func(input float64, timestamp time.T
 
 ### 2. **Function** - User-defined logic
 ```go
-sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) YourDataType {
+sensorFunc := gosense.NewFunction(func(input float64, timestamp time.Time) YourDataType {
     // Your logic here
     return yourData
 })
@@ -97,7 +97,7 @@ sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) YourDa
 
 ### 3. **LambdaSensorFunction** - Inline anonymous functions
 ```go
-sensorFunc := engine.NewLambdaSensorFunction(func(input float64, timestamp time.Time) YourDataType {
+sensorFunc := gosense.NewLambdaSensorFunction(func(input float64, timestamp time.Time) YourDataType {
     // Your logic here
     return yourData
 })
@@ -118,10 +118,10 @@ type TemperatureReading struct {
 }
 
 // Time-based seeder simulates daily temperature cycles
-seeder := engine.NewTimeSeeder(1.0, 0.1, 20.0)
+seeder := gosense.NewTimeSeeder(1.0, 0.1, 20.0)
 
 // Function uses seeder input + time for realistic temperature data
-sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) TemperatureReading {
+sensorFunc := gosense.NewFunction(func(input float64, timestamp time.Time) TemperatureReading {
     // Input represents environmental factor (0-1) from seeder
     baseTemp := input
     
@@ -165,10 +165,10 @@ type IoTReading struct {
 }
 
 // Random seeder simulates random device states
-seeder := engine.NewRandomSeeder(0.0, 1.0)
+seeder := gosense.NewRandomSeeder(0.0, 1.0)
 
 // Function maps random input to device metrics
-sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) IoTReading {
+sensorFunc := gosense.NewFunction(func(input float64, timestamp time.Time) IoTReading {
     // Input represents device stress/activity level (0-1)
     
     // Battery decreases with activity
@@ -217,10 +217,10 @@ type MachineMetrics struct {
 }
 
 // Linear seeder simulates gradual machine wear
-seeder := engine.NewLinearSeeder(0.01, 0.1)
+seeder := gosense.NewLinearSeeder(0.01, 0.1)
 
 // Function simulates machine degradation over time
-sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) MachineMetrics {
+sensorFunc := gosense.NewFunction(func(input float64, timestamp time.Time) MachineMetrics {
     // Input represents machine wear factor (increases over time)
     
     // Vibration increases with wear
@@ -276,10 +276,10 @@ type WeatherData struct {
 }
 
 // Normal seeder simulates natural weather variations
-seeder := engine.NewNormalSeeder(0.5, 0.2)
+seeder := gosense.NewNormalSeeder(0.5, 0.2)
 
 // Function creates realistic weather patterns
-sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) WeatherData {
+sensorFunc := gosense.NewFunction(func(input float64, timestamp time.Time) WeatherData {
     // Input represents weather variability (normally distributed)
     
     // Temperature with seasonal + daily variations
@@ -343,7 +343,7 @@ sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) Weathe
 ### **2. Design Your Function Logic**
 ```go
 // Good: Clear separation of concerns
-sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) YourData {
+sensorFunc := gosense.NewFunction(func(input float64, timestamp time.Time) YourData {
     // 1. Use seeder input as primary driver
     baseValue := input * scaleFactor
     
@@ -362,7 +362,7 @@ sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) YourDa
 
 ### **3. Handle Edge Cases**
 ```go
-sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) YourData {
+sensorFunc := gosense.NewFunction(func(input float64, timestamp time.Time) YourData {
     // Clamp values to realistic ranges
     if result < minValue { result = minValue }
     if result > maxValue { result = maxValue }
@@ -385,7 +385,7 @@ package main
 
 import (
     "time"
-    "github.com/Utsav-pixel/go-sensor-engine/internal/engine"
+    "github.com/Utsav-pixel/gosense"
 )
 
 func main() {
@@ -397,10 +397,10 @@ func main() {
     }
     
     // 2. Choose your seeder
-    seeder := engine.NewTimeSeeder(1.0, 0.1, 0.0)
+    seeder := gosense.NewTimeSeeder(1.0, 0.1, 0.0)
     
     // 3. Create your function
-    sensorFunc := engine.NewFunction(func(input float64, timestamp time.Time) MySensorData {
+    sensorFunc := gosense.NewFunction(func(input float64, timestamp time.Time) MySensorData {
         value := input * 100.0
         
         var status string
@@ -421,9 +421,9 @@ func main() {
     
     // 4. Create publisher and engine
     publisher := NewYourPublisher[MySensorData]()
-    config := engine.DefaultConfig()
+    config := gosense.DefaultConfig()
     
-    testEngine := engine.NewEngine(config, seeder, sensorFunc, publisher)
+    testEngine := gosense.NewEngine(config, seeder, sensorFunc, publisher)
     
     // 5. Run it
     ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)

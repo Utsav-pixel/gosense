@@ -13,8 +13,11 @@ This library is designed to be **advanced and flexible**, not prescriptive. We p
 
 ## 🏗️ **Core Architecture**
 
-### Generic Types (`internal/engine/types.go`)
+### Generic Types
+These types are available when you import the public API:
 ```go
+import "github.com/Utsav-pixel/gosense"
+
 type SensorData[T any] struct {
     ID        string    `json:"id"`
     Timestamp time.Time `json:"timestamp"`
@@ -37,26 +40,25 @@ type Publisher[T any] interface {
 }
 ```
 
-### Flexible Seeders (`internal/engine/seeders.go`)
-- `TimeSeeder` - Time-based oscillating values
-- `RandomSeeder` - Random values within range
-- `LinearSeeder` - Linearly increasing values
-- `NormalSeeder` - Normal distribution values
-- `CustomSeeder` - **Your custom generation functions**
+### Flexible Seeders
+Available via the public API:
+- `gosense.NewTimeSeeder()` - Time-based oscillating values
+- `gosense.NewRandomSeeder()` - Random values within range
+- `gosense.NewLinearSeeder()` - Linearly increasing values
+- `gosense.NewNormalSeeder()` - Normal distribution values
+- `gosense.NewCustomSeeder()` - **Your custom generation functions**
 
-### Generic Functions (`internal/engine/functions.go`)
-- `BasicSensorFunction[T]` - Custom transform functions
-- `CustomSensorFunction[T]` - **Your custom generation logic**
-- `LambdaSensorFunction[T]` - Inline anonymous functions
+### Generic Functions
+Available via the public API:
+- `gosense.NewBasicSensorFunction()` - Custom transform functions
+- `gosense.NewFunction()` - **Your custom sensor logic**
+- `gosense.NewLambdaSensorFunction()` - Inline anonymous functions
 
 ## 🚀 **Quick Start**
 
 ### Installation
 ```bash
-git clone https://github.com/Utsav-pixel/go-sensor-engine.git
-cd go-sensor-engine
-go mod tidy
-go build ./cmd/sensor-engine
+go get github.com/Utsav-pixel/gosense
 ```
 
 ### Running Examples
@@ -89,8 +91,11 @@ type TemperatureReading struct {
     Location   string  `json:"location"`
 }
 
+```go
+import "github.com/Utsav-pixel/gosense"
+
 // YOUR CUSTOM LOGIC HERE
-temperatureFunc := engine.NewLambdaSensorFunction(func(input float64, timestamp time.Time) TemperatureReading {
+temperatureFunc := gosense.NewFunction(func(input float64, timestamp time.Time) TemperatureReading {
     // Input represents environmental factor (0-1)
     baseTemp := 20.0 + input*15
     
@@ -123,7 +128,7 @@ type HeartRateData struct {
 }
 
 // YOUR CUSTOM MEDICAL LOGIC HERE
-heartRateFunc := engine.NewBasicSensorFunction(func(input float64, timestamp time.Time) HeartRateData {
+heartRateFunc := gosense.NewBasicSensorFunction(func(input float64, timestamp time.Time) HeartRateData {
     // Input represents stress level (0-1)
     baseHR := 60 + input*40
     
@@ -260,13 +265,13 @@ Run comprehensive tests:
 
 ```bash
 # Run all tests
-go test ./internal/engine/...
+go test ./...
 
 # Run benchmarks
-go test -bench ./internal/engine/...
+go test -bench ./...
 
 # Test specific functionality
-go test -run TestEngine_BasicFunctionality ./internal/engine/
+go test -run TestEngine
 ```
 
 ## 📊 **Supported Publishers**
@@ -313,7 +318,7 @@ grpcPublisher, err := publisher.NewGenericGRPCPublisher[YourDataType]("localhost
 
 ### Custom Seeder
 ```go
-vibrationSeeder := engine.NewCustomSeeder(func() float64 {
+vibrationSeeder := gosense.NewCustomSeeder(func() float64 {
     t := float64(time.Now().UnixNano()) / 1e9
     return 0.5 * (0.3*math.Sin(t*2.0) + 0.2*math.Sin(t*7.3) + 0.1*math.Sin(t*13.7))
 })
@@ -321,15 +326,15 @@ vibrationSeeder := engine.NewCustomSeeder(func() float64 {
 
 ### Dynamic Configuration Loading
 ```go
-configFile, err := engine.LoadConfigFromFile("my-sensor-config.json")
-if err != nil {
-    log.Fatal(err)
-}
+// Note: This feature would need to be implemented in the public API
+// For now, use the configuration presets:
+config := gosense.DefaultConfig()
+// or
+config := gosense.HighThroughputConfig()
+// or
+config := gosense.LowLatencyConfig()
 
-engineConfig, err := configFile.ToEngineConfig()
-seeder, err := configFile.CreateSeeder()
-
-sensorEngine := engine.NewEngine(engineConfig, seeder, yourFunction, yourPublisher)
+sensorEngine := gosense.NewEngine(config, seeder, yourFunction, yourPublisher)
 ```
 
 ## 📈 **Performance**

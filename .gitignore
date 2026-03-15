@@ -36,4 +36,4 @@ ehthumbs.db
 Thumbs.db
 
 # Documentation files (exclude blog from repo)
-/docs/BLOG_HUMAN.md
+# /docs/BLOG_HUMAN.md

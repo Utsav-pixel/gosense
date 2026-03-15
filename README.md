@@ -22,26 +22,29 @@ A highly configurable, generic sensor data generation engine written in Go that 
 
 ## Architecture
 
-The engine consists of several key components:
+The engine consists of several key components available through the public API:
 
-### 1. Generic Types (`internal/engine/types.go`)
+### 1. Generic Types
+Available when you import `github.com/Utsav-pixel/gosense`:
 - `SensorData[T]`: Generic container for sensor readings
 - `Seeder`: Interface for input value generation
 - `SensorFunction[T]`: Interface for data transformation
 - `Publisher[T]`: Interface for data publishing
 - `Engine[T]`: Main engine orchestrator
 
-### 2. Seeders (`internal/engine/seeders.go`)
+### 2. Seeders
+Available via `gosense.New*Seeder()` functions:
 - `TimeSeeder`: Time-based oscillating values
 - `RandomSeeder`: Random values within range
 - `LinearSeeder`: Linearly increasing values
 - `NormalSeeder`: Normal distribution values
 - `CustomSeeder`: Custom generation functions
 
-### 3. Sensor Functions (`internal/engine/functions.go`)
-- `TemperatureSensorFunction`: Temperature data generation
-- `HeartRateSensorFunction`: Heart rate simulation
-- `BloodPressureSensorFunction`: Blood pressure readings
+### 3. Sensor Functions
+Available via `gosense.New*Function()` constructors:
+- `BasicSensorFunction[T]`: Basic sensor data transformation
+- `Function[T]`: User-defined sensor data generation
+- `LambdaSensorFunction[T]`: Inline anonymous functions
 - `WeatherSensorFunction`: Weather data generation
 - `CustomSensorFunction[T]`: Custom transformation functions
 
@@ -54,9 +57,17 @@ The engine consists of several key components:
 
 ### Installation
 
+#### As a Library
+
 ```bash
-git clone https://github.com/Utsav-pixel/go-sensor-engine.git
-cd go-sensor-engine
+go get github.com/Utsav-pixel/gosense
+```
+
+#### From Source
+
+```bash
+git clone https://github.com/Utsav-pixel/gosense.git
+cd gosense
 go mod tidy
 go build ./cmd/sensor-engine
 ```
@@ -92,17 +103,19 @@ go build ./cmd/sensor-engine
 ### Medical Sensor Example
 
 ```go
+import "github.com/Utsav-pixel/gosense"
+
 // Configuration for medical sensors
-config := engine.DefaultConfig()
+config := gosense.DefaultConfig()
 config.ProductionRate = 1 * time.Second // Generate data every second
 config.BatchSize = 10
 config.BatchTimeout = 5 * time.Second
 
 // Create a stress level seeder (0.0 to 1.0)
-stressSeeder := engine.NewNormalSeeder(0.5, 0.2) // Patient variability
+stressSeeder := gosense.NewNormalSeeder(0.5, 0.2) // Patient variability
 
 // Create medical sensor function with your own logic
-medicalFunc := engine.NewFunction(func(input float64, timestamp time.Time) MedicalData {
+medicalFunc := gosense.NewFunction(func(input float64, timestamp time.Time) MedicalData {
     // Your business logic here
     heartRate := 70 + int(input*40) // Stress increases heart rate
     bloodPressure := BloodPressure{120 + int(input*20), 80 + int(input*15)}
@@ -121,7 +134,7 @@ medicalFunc := engine.NewFunction(func(input float64, timestamp time.Time) Medic
 httpPublisher := publisher.NewGenericHTTPPublisher[MedicalData]("https://api.medical.example.com/vitals")
 
 // Create and start engine
-medicalEngine := engine.NewEngine(config, stressSeeder, medicalFunc, httpPublisher)
+medicalEngine := gosense.NewEngine(config, stressSeeder, medicalFunc, httpPublisher)
 ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 defer cancel()
 
@@ -134,14 +147,14 @@ if err := medicalEngine.Start(ctx); err != nil {
 
 ```go
 // High-throughput configuration
-config := engine.HighThroughputConfig()
+config := gosense.HighThroughputConfig()
 config.ProductionRate = 500 * time.Millisecond
 
 // Weather pattern seeder
-weatherSeeder := engine.NewTimeSeeder(1.0, 0.05, 0.0)
+weatherSeeder := gosense.NewTimeSeeder(1.0, 0.05, 0.0)
 
 // Weather sensor function with your own logic
-weatherFunc := engine.NewFunction(func(input float64, timestamp time.Time) WeatherData {
+weatherFunc := gosense.NewFunction(func(input float64, timestamp time.Time) WeatherData {
     // Your business logic here
     hour := float64(timestamp.Hour())
     dayOfYear := float64(timestamp.YearDay())
@@ -176,7 +189,7 @@ kafkaPublisher := publisher.NewGenericKafkaPublisher[WeatherData](
 )
 
 // Create and start engine
-weatherEngine := engine.NewEngine(config, weatherSeeder, weatherFunc, kafkaPublisher)
+weatherEngine := gosense.NewEngine(config, weatherSeeder, weatherFunc, kafkaPublisher)
 ctx, cancel := context.WithTimeout(context.Background(), 1*time.Minute)
 defer cancel()
 
@@ -215,7 +228,7 @@ func (m *MarketSeeder) Generate() float64 {
 }
 
 // Custom sensor function with your own logic
-customFunc := engine.NewFunction(func(input float64, timestamp time.Time) YourData {
+customFunc := gosense.NewFunction(func(input float64, timestamp time.Time) YourData {
     // Your business logic here
     value := input * 100.0
     status := "normal"
@@ -232,7 +245,7 @@ customFunc := engine.NewFunction(func(input float64, timestamp time.Time) YourDa
 consolePublisher := NewConsolePublisher[YourData]()
 
 // Create and start engine
-customEngine := engine.NewEngine(config, &MarketSeeder{cycle: 0}, customFunc, consolePublisher)
+customEngine := gosense.NewEngine(config, &MarketSeeder{cycle: 0}, customFunc, consolePublisher)
 ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 defer cancel()
 
@@ -303,11 +316,11 @@ type MyCustomPublisher[T any] struct {
     // your fields
 }
 
-func (m *MyCustomPublisher[T]) Publish(ctx context.Context, data engine.SensorData[T]) error {
+func (m *MyCustomPublisher[T]) Publish(ctx context.Context, data gosense.SensorData[T]) error {
     // your implementation
 }
 
-func (m *MyCustomPublisher[T]) PublishBatch(ctx context.Context, data []engine.SensorData[T]) error {
+func (m *MyCustomPublisher[T]) PublishBatch(ctx context.Context, data []gosense.SensorData[T]) error {
     // your implementation
 }
 
