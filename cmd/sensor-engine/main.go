@@ -8,8 +8,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/Utsav-pixel/go-sensor-engine/examples"
-	"github.com/Utsav-pixel/go-sensor-engine/internal/engine"
+	"github.com/utsav-pixel/gosense/examples"
+	"github.com/utsav-pixel/gosense/internal/engine"
 )
 
 func main() {

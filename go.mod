@@ -1,4 +1,4 @@
-module github.com/Utsav-pixel/go-sensor-engine
+module github.com/utsav-pixel/gosense
 
 go 1.24.1
 

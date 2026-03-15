@@ -8,7 +8,7 @@ import (
 	"math/rand/v2"
 	"time"
 
-	"github.com/Utsav-pixel/go-sensor-engine/internal/engine"
+	"github.com/utsav-pixel/gosense/internal/engine"
 )
 
 // ConsolePublisher publishes data to console for testing

@@ -7,8 +7,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/Utsav-pixel/go-sensor-engine/internal/engine"
 	"github.com/segmentio/kafka-go"
+	"github.com/utsav-pixel/gosense/internal/engine"
 )
 
 // GenericKafkaPublisher is a generic Kafka publisher
