@@ -2,11 +2,36 @@
 
 A highly configurable, generic sensor data generation engine written in Go that can simulate any type of sensor data (medical, weather, industrial, etc.) with configurable production rates, batching, and multiple publishing options.
 
+## 🚀 **Latest Release**
+
+### **[v0.2.1](docs/releases/v0.2.1.md)** - Complete Public API ✅
+
+**📦 Install**: `go get github.com/Utsav-pixel/gosense@v0.2.1`
+
+**✨ What's New**:
+- ✅ All publishers now available (HTTP, Kafka, gRPC)
+- ✅ Complete public API documentation
+- ✅ Production-ready sensor data generation
+
+**🔄 Quick Start**:
+```go
+import "github.com/Utsav-pixel/gosense"
+
+// Create publisher
+httpPublisher := gosense.NewGenericHTTPPublisher[YourData]("https://api.example.com/data")
+
+// Create engine
+engine := gosense.NewEngine(config, seeder, sensorFunc, httpPublisher)
+```
+
+---
+
 ## 📖 **Documentation**
 
-- **� [Documentation Hub](docs/)** - Complete documentation with guides and tutorials
-- **�📝 Blog: [From Data Scarcity to Data Abundance](docs/BLOG_HUMAN.md)** - Learn how GoSense is revolutionizing software development
-- **� [Seeder & Function Guide](docs/SEEDER_FUNCTION_GUIDE.md)** - Comprehensive guide on using seeders and functions
+- **📚 [Documentation Hub](docs/)** - Complete documentation with guides and tutorials
+- **🚀 [Release Notes](docs/releases/)** - Detailed version history and upgrade guides
+- **📝 Blog: [From Data Scarcity to Data Abundance](docs/BLOG_HUMAN.md)** - Learn how GoSense is revolutionizing software development
+- **🌱 [Seeder & Function Guide](docs/SEEDER_FUNCTION_GUIDE.md)** - Comprehensive guide on using seeders and functions
 - **⚙️ [Advanced Configuration](docs/README_ADVANCED.md)** - Advanced setup and optimization techniques
 
 ## Features

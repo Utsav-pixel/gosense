@@ -80,12 +80,12 @@ One of the biggest headaches in data generation is getting data where you need i
 
 **HTTP Publisher** - Send data to any REST endpoint
 ```go
-httpPublisher := publisher.NewGenericHTTPPublisher[YourData]("https://api.yourapp.com/sensors")
+httpPublisher := gosense.NewGenericHTTPPublisher[YourData]("https://api.yourapp.com/sensors")
 ```
 
 **Kafka Publisher** - Stream data to Kafka topics
 ```go
-kafkaPublisher := publisher.NewGenericKafkaPublisher[YourData](
+kafkaPublisher := gosense.NewGenericKafkaPublisher[YourData](
     []string{"localhost:9092"}, 
     "sensor-data-topic"
 )
@@ -93,7 +93,7 @@ kafkaPublisher := publisher.NewGenericKafkaPublisher[YourData](
 
 **gRPC Publisher** - Low-latency communication
 ```go
-grpcPublisher := publisher.NewGenericGRPCPublisher[YourData]("localhost:50051")
+grpcPublisher, err := gosense.NewGenericGRPCPublisher[YourData]("localhost:50051")
 ```
 
 **Console Publisher** - Development and debugging
