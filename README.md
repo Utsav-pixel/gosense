@@ -4,15 +4,20 @@ A highly configurable, generic sensor data generation engine written in Go that 
 
 ## 🚀 **Latest Release**
 
-### **[v0.2.3](docs/releases/v0.2.3.md)** - Console Publisher Added ✅
+### **[v0.2.4](docs/releases/v0.2.4.md)** - Real Performance Benchmarks ✅
 
-**📦 Install**: `go get github.com/Utsav-pixel/gosense@v0.2.3`
+**📦 Install**: `go get github.com/Utsav-pixel/gosense@v0.2.4`
 
 **✨ What's New**:
-- ✅ Added console publisher to public API
-- ✅ Complete publisher ecosystem (HTTP, Kafka, gRPC, Console)
-- ✅ Enhanced development and testing experience
-- ✅ Visual formatted output for debugging
+- ✅ Replaced made-up performance numbers with real benchmarks
+- ✅ Added complete benchmarking suite for verification
+- ✅ Updated all documentation with actual performance metrics
+- ✅ Added machine specifications and performance tips
+
+**📊 Real Performance (macOS ARM64, 8 cores)**:
+- **Throughput**: 980 data points/second
+- **Memory**: 69MB per 100K concurrent data points
+- **Latency**: 1.0ms per data point (1000 microseconds)
 
 **🔄 Quick Start**:
 ```go
