@@ -6,6 +6,7 @@ import (
 	"time"
 
 	"github.com/Utsav-pixel/gosense/internal/engine"
+	"github.com/Utsav-pixel/gosense/internal/publisher"
 )
 
 // Re-export public types from internal/engine
@@ -131,4 +132,31 @@ func HighThroughputConfig() Config {
 
 func LowLatencyConfig() Config {
 	return engine.LowLatencyConfig()
+}
+
+// Re-export publishers
+type (
+	// GenericHTTPPublisher is a generic HTTP publisher
+	GenericHTTPPublisher[T any] = publisher.GenericHTTPPublisher[T]
+
+	// GenericKafkaPublisher is a generic Kafka publisher
+	GenericKafkaPublisher[T any] = publisher.GenericKafkaPublisher[T]
+
+	// GenericGRPCPublisher is a generic gRPC publisher
+	GenericGRPCPublisher[T any] = publisher.GenericGRPCPublisher[T]
+)
+
+// NewGenericHTTPPublisher creates a new generic HTTP publisher
+func NewGenericHTTPPublisher[T any](endpoint string) *GenericHTTPPublisher[T] {
+	return publisher.NewGenericHTTPPublisher[T](endpoint)
+}
+
+// NewGenericKafkaPublisher creates a new generic Kafka publisher
+func NewGenericKafkaPublisher[T any](brokers []string, topic string) *GenericKafkaPublisher[T] {
+	return publisher.NewGenericKafkaPublisher[T](brokers, topic)
+}
+
+// NewGenericGRPCPublisher creates a new generic gRPC publisher
+func NewGenericGRPCPublisher[T any](address string) (*GenericGRPCPublisher[T], error) {
+	return publisher.NewGenericGRPCPublisher[T](address)
 }

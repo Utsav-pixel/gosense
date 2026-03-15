@@ -243,25 +243,19 @@ config := gosense.Config{
 ### **4. Publisher Optimization**
 ```go
 // HTTP Publisher - Use connection pooling
-httpPublisher := publisher.NewGenericHTTPPublisher[YourData](
+httpPublisher := gosense.NewGenericHTTPPublisher[YourData](
     "https://api.yourapp.com/sensors",
-    publisher.WithMaxConnections(10),
-    publisher.WithTimeout(5*time.Second),
 )
 
 // Kafka Publisher - Tune for your cluster
-kafkaPublisher := publisher.NewGenericKafkaPublisher[YourData](
+kafkaPublisher := gosense.NewGenericKafkaPublisher[YourData](
     []string{"localhost:9092"},
     "sensor-data-topic",
-    publisher.WithBatchSize(1000),
-    publisher.WithFlushInterval(100*time.Millisecond),
 )
 
 // gRPC Publisher - Use keepalive
-grpcPublisher := publisher.NewGenericGRPCPublisher[YourData](
+grpcPublisher, err := gosense.NewGenericGRPCPublisher[YourData](
     "localhost:50051",
-    publisher.WithKeepAlive(30*time.Second),
-    publisher.WithMaxMsgSize(4*1024*1024), // 4MB
 )
 ```
 

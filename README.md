@@ -48,9 +48,10 @@ Available via `gosense.New*Function()` constructors:
 - `WeatherSensorFunction`: Weather data generation
 - `CustomSensorFunction[T]`: Custom transformation functions
 
-### 4. Publishers (`internal/publisher/`)
+### 4. Publishers
+Available via `gosense.New*Publisher()` functions:
 - `GenericHTTPPublisher[T]`: HTTP/REST API publishing
-- `GenericKafkaPublisher[T]`: Apache Kafka publishing
+- `GenericKafkaPublisher[T]`: Apache Kafka publishing  
 - `GenericGRPCPublisher[T]`: gRPC streaming
 
 ## Quick Start
@@ -131,7 +132,16 @@ medicalFunc := gosense.NewFunction(func(input float64, timestamp time.Time) Medi
 })
 
 // Create publisher
-httpPublisher := publisher.NewGenericHTTPPublisher[MedicalData]("https://api.medical.example.com/vitals")
+httpPublisher := gosense.NewGenericHTTPPublisher[MedicalData]("https://api.medical.example.com/vitals")
+
+// Or use Kafka publisher
+kafkaPublisher := gosense.NewGenericKafkaPublisher[MedicalData](
+    []string{"localhost:9092"},
+    "medical.data",
+)
+
+// Or use gRPC publisher
+grpcPublisher, err := gosense.NewGenericGRPCPublisher[MedicalData]("localhost:50051")
 
 // Create and start engine
 medicalEngine := gosense.NewEngine(config, stressSeeder, medicalFunc, httpPublisher)
@@ -183,7 +193,7 @@ weatherFunc := gosense.NewFunction(func(input float64, timestamp time.Time) Weat
 })
 
 // Kafka publisher for high throughput
-kafkaPublisher := publisher.NewGenericKafkaPublisher[WeatherData](
+kafkaPublisher := gosense.NewGenericKafkaPublisher[WeatherData](
     []string{"localhost:9092"},
     "weather.data.v1",
 )

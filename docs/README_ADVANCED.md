@@ -278,20 +278,20 @@ go test -run TestEngine
 
 ### HTTP Publisher
 ```go
-httpPublisher := publisher.NewGenericHTTPPublisher[YourDataType]("https://api.example.com/data")
+httpPublisher := gosense.NewGenericHTTPPublisher[YourDataType]("https://api.example.com/data")
 ```
 
 ### Kafka Publisher
 ```go
-kafkaPublisher := publisher.NewGenericKafkaPublisher[YourDataType](
+kafkaPublisher := gosense.NewGenericKafkaPublisher[YourDataType](
     []string{"localhost:9092"},
-    "sensor.data.v1",
+    "your-topic",
 )
 ```
 
 ### gRPC Publisher
 ```go
-grpcPublisher, err := publisher.NewGenericGRPCPublisher[YourDataType]("localhost:50051")
+grpcPublisher, err := gosense.NewGenericGRPCPublisher[YourDataType]("localhost:50051")
 ```
 
 ## 🎛️ **Configuration Presets**
