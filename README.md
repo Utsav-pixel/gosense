@@ -4,14 +4,15 @@ A highly configurable, generic sensor data generation engine written in Go that 
 
 ## 🚀 **Latest Release**
 
-### **[v0.2.1](docs/releases/v0.2.1.md)** - Complete Public API ✅
+### **[v0.2.2](docs/releases/v0.2.2.md)** - Documentation Organization ✅
 
-**📦 Install**: `go get github.com/Utsav-pixel/gosense@v0.2.1`
+**📦 Install**: `go get github.com/Utsav-pixel/gosense@v0.2.2`
 
 **✨ What's New**:
-- ✅ All publishers now available (HTTP, Kafka, gRPC)
-- ✅ Complete public API documentation
-- ✅ Production-ready sensor data generation
+- ✅ Organized release notes in dedicated folder
+- ✅ Enhanced README with latest release section  
+- ✅ Better documentation navigation and structure
+- ✅ Professional documentation presentation
 
 **🔄 Quick Start**:
 ```go
