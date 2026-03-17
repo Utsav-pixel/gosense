@@ -4,6 +4,12 @@ This directory contains detailed release notes for all GoSense versions.
 
 ## 📋 Available Releases
 
+### **[v0.2.5](./v0.2.5.md)** - Blog Migration to Medium
+- ✅ Moved blog from repository to Medium platform
+- ✅ Reduced repository size by removing large blog file
+- ✅ Updated all references to point to Medium article
+- ✅ Better reading experience and accessibility
+
 ### **[v0.2.4](./v0.2.4.md)** - Real Performance Benchmarks
 - ✅ Replaced made-up performance numbers with real benchmarks
 - ✅ Added complete benchmarking suite for verification
@@ -36,7 +42,7 @@ This directory contains detailed release notes for all GoSense versions.
 
 ## 🔄 Upgrade Guide
 
-### From v0.1.0 to v0.2.4
+### From v0.1.0 to v0.2.5
 ```bash
 # Old (broken)
 import "github.com/Utsav-pixel/gosense/internal/engine"
@@ -45,10 +51,10 @@ import "github.com/Utsav-pixel/gosense/internal/engine"
 import "github.com/Utsav-pixel/gosense"
 ```
 
-### From v0.2.0/v0.2.1/v0.2.2/v0.2.3 to v0.2.4
+### From v0.2.0/v0.2.1/v0.2.2/v0.2.3/v0.2.4 to v0.2.5
 No breaking changes - documentation improvements only:
 ```bash
-go get github.com/Utsav-pixel/gosense@v0.2.4
+go get github.com/Utsav-pixel/gosense@v0.2.5
 ```
 
 ---
@@ -57,6 +63,7 @@ go get github.com/Utsav-pixel/gosense@v0.2.4
 
 | Version | Date | Changes |
 |---------|------|---------|
+| v0.2.5 | 2025-03-18 | Blog migration to Medium |
 | v0.2.4 | 2025-03-16 | Real performance benchmarks |
 | v0.2.3 | 2025-03-15 | Console publisher added |
 | v0.2.2 | 2025-03-15 | Documentation organization |
@@ -66,5 +73,5 @@ go get github.com/Utsav-pixel/gosense@v0.2.4
 
 ---
 
-**🎯 Latest Version**: [v0.2.4](./v0.2.4.md)  
-**📦 Install**: `go get github.com/Utsav-pixel/gosense@v0.2.4`
+**🎯 Latest Version**: [v0.2.5](./v0.2.5.md)  
+**📦 Install**: `go get github.com/Utsav-pixel/gosense@v0.2.5`
