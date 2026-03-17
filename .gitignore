@@ -35,6 +35,5 @@ go.work
 ehthumbs.db
 Thumbs.db
 
-# Documentation files (exclude blog from repo)
-# /docs/BLOG_HUMAN.md
-docs/BLOG_HUMAN.md
+# Documentation files (blog now hosted externally)
+# Blog is now hosted on Medium: https://medium.com/@utsav.moradiya3/from-data-scarcity-to-data-abundance-gosense-that-thinks-like-you-055a21439a58

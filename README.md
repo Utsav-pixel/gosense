@@ -39,7 +39,7 @@ engine := gosense.NewEngine(config, seeder, sensorFunc, publisher)
 
 - **📚 [Documentation Hub](docs/)** - Complete documentation with guides and tutorials
 - **🚀 [Release Notes](docs/releases/)** - Detailed version history and upgrade guides
-- **📝 Blog: [From Data Scarcity to Data Abundance](docs/BLOG_HUMAN.md)** - Learn how GoSense is revolutionizing software development
+- **📝 Blog: [From Data Scarcity to Data Abundance](https://medium.com/@utsav.moradiya3/from-data-scarcity-to-data-abundance-gosense-that-thinks-like-you-055a21439a58)** - Learn how GoSense is revolutionizing software development
 - **🌱 [Seeder & Function Guide](docs/SEEDER_FUNCTION_GUIDE.md)** - Comprehensive guide on using seeders and functions
 - **⚙️ [Advanced Configuration](docs/README_ADVANCED.md)** - Advanced setup and optimization techniques
 
